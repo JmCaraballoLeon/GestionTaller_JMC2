@@ -24,16 +24,17 @@ table 50121 SalidaVehiculo
             DataClassification = CustomerContent;
             Caption = 'Importe de intervención';
         }
-        field(5; GeneraMov; Code[50])
+        field(5; MovimientoSalida; Integer)
         {
             DataClassification = CustomerContent;
             Caption = 'Movimiento de salida en el taller';
+            AutoIncrement = true;
         }
     }
 
     keys
     {
-        key(Key1; CodigoVehiculo)
+        key(Key1; CodigoVehiculo, Fecha)
         {
             Clustered = true;
         }

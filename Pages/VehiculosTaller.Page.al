@@ -4,12 +4,12 @@ page 50120 VehiculosTaller
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = Vehiculo;
-
+    Caption = 'Lista de Vehiculos Taller JMC';
     layout
     {
         area(Content)
         {
-            group(GroupName)
+            repeater(Taller)
             {
                 field(Codigo; Rec.Codigo)
                 {
@@ -65,10 +65,35 @@ page 50120 VehiculosTaller
     {
         area(Processing)
         {
-            action(ActionName)
+            action("Vehiculos")
             {
                 ApplicationArea = All;
+                Image = List;
+                Caption = 'Lista de Vehiculos';
+                InFooterBar = true;
+                RunObject = Page VehiculosTaller;
+                trigger OnAction()
+                begin
 
+                end;
+            }
+            action(Entrada)
+            {
+                ApplicationArea = All;
+                Image = Open;
+                Caption = 'Entrada Vehiculos';
+                RunObject = Page EntradaVehiculos;
+                trigger OnAction()
+                begin
+
+                end;
+            }
+            action(Salida)
+            {
+                ApplicationArea = All;
+                Image = Open;
+                Caption = 'Salida Vehiculos';
+                RunObject = Page SalidaVehiculos;
                 trigger OnAction()
                 begin
 

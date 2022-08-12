@@ -31,7 +31,7 @@ table 50122 MovimientosTaller
 
     keys
     {
-        key(Key1; IdMov)
+        key(Key1; IdMov, FechaMov)
         {
             Clustered = true;
         }

@@ -9,7 +9,7 @@ page 50122 EntradaVehiculos
     {
         area(Content)
         {
-            group(GroupName)
+            repeater(Taller)
             {
                 field(CodigoVehiculo; Rec.CodigoVehiculo)
                 {
@@ -40,18 +40,49 @@ page 50122 EntradaVehiculos
     {
         area(Processing)
         {
-            action(ActionName)
+            action("Vehiculos")
             {
                 ApplicationArea = All;
-
+                Image = List;
+                Caption = 'Lista de Vehiculos';
+                InFooterBar = true;
+                RunObject = Page VehiculosTaller;
                 trigger OnAction()
                 begin
 
                 end;
             }
+            action(Salida)
+            {
+                ApplicationArea = All;
+                Image = ClosePeriod;
+                Caption = 'Salida Vehiculos';
+                RunObject = Page SalidaVehiculos;
+                trigger OnAction()
+                begin
+
+                end;
+            }
+            action(CerrarEntrada)
+            {
+                ApplicationArea = All;
+                Image = Close;
+                Caption = 'Cerrar Entrada';
+                RunObject = Page Movimientos;
+
+                trigger OnAction()
+                var
+                    Movimientos: Record MovimientosTaller;
+                begin
+                    Movimientos.Init();
+                    Movimientos.IdMov := Rec.MovimientoEntrada;
+                    Movimientos.FechaMov := Rec.FechaEntrada;
+                    Movimientos.Motivo := Rec.MotivoEntrada;
+                    Movimientos.Insert();
+                end;
+            }
         }
     }
 
-    var
-        myInt: Integer;
+
 }

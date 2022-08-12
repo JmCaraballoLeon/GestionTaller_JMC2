@@ -9,7 +9,7 @@ page 50121 SalidaVehiculos
     {
         area(Content)
         {
-            group(GroupName)
+            repeater(Taller)
             {
                 field(CodigoVehiculo; Rec.CodigoVehiculo)
                 {
@@ -31,7 +31,7 @@ page 50121 SalidaVehiculos
                     ApplicationArea = All;
                     Caption = 'Importe Intervención';
                 }
-                field(GeneraMov; Rec.GeneraMov)
+                field(GeneraMov; Rec.MovimientoSalida)
                 {
                     ApplicationArea = All;
                     Caption = 'Genera Movimiento';
@@ -44,18 +44,48 @@ page 50121 SalidaVehiculos
     {
         area(Processing)
         {
-            action(ActionName)
+            action("Vehiculos")
             {
                 ApplicationArea = All;
-
+                Image = List;
+                Caption = 'Lista de Vehiculos';
+                InFooterBar = true;
+                RunObject = Page VehiculosTaller;
                 trigger OnAction()
                 begin
 
                 end;
             }
+            action(Entrada)
+            {
+                ApplicationArea = All;
+                Image = Open;
+                Caption = 'Entrada Vehiculos';
+                RunObject = Page EntradaVehiculos;
+                trigger OnAction()
+                begin
+
+                end;
+            }
+            action(CerrarSalida)
+            {
+                ApplicationArea = All;
+                Image = Close;
+                Caption = 'Salida Vehiculos';
+                RunObject = Page Movimientos;
+                Promoted = true;
+                trigger OnAction()
+                var
+                    Movimientos: Record MovimientosTaller;
+                begin
+                    Movimientos.Init();
+                    Movimientos.IdMov := Rec.MovimientoSalida;
+                    Movimientos.FechaMov := Rec.Fecha;
+                    Movimientos.Motivo := Rec.MotivoSalida;
+                    Movimientos.Insert();
+                end;
+            }
         }
     }
 
-    var
-        myInt: Integer;
 }
